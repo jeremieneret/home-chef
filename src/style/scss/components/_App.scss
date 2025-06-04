@@ -1,0 +1,29 @@
+@use '../tools/' as *;
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 32px 32px 32px;
+}
+
+.background-img {
+  position: absolute;
+  background-image: url('/assets/hero-image-github-profile.jpg');
+  background-repeat: no-repeat;
+  background-position: top;
+  background-size: cover;
+  margin: 0 auto;
+  width: 100vw;
+  height: 240px;
+  z-index: 0;
+}
+
+.full-details {
+  z-index: 1;
+  margin: 110px auto 0 auto;
+  max-width: 1110px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
