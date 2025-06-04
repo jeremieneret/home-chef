@@ -1,3 +1,5 @@
+import React from "react";
+
 function Recipes({ recipes }) {
   if (!recipes || recipes.length === 0) {
     return (
@@ -8,20 +10,18 @@ function Recipes({ recipes }) {
   }
 
   return (
-    <>
-      <ul className="recipes-list">
-        {recipes.slice(0, 6).map((recipe) => (
-          <li key={recipe.idMeal} className="recipe-item">
-            <img
-              src={recipe.strMealThumb}
-              alt={recipe.strMeal}
-              className="recipe-image"
-            />
-            <span className="recipe-name">{recipe.strMeal}</span>
-          </li>
-        ))}
-      </ul>
-    </>
+    <ul className="recipes-list">
+      {recipes.slice(0, 6).map((recipe) => (
+        <li key={recipe.idMeal} className="recipe-item">
+          <img
+            src={recipe.strMealThumb}
+            alt={recipe.strMeal}
+            className="recipe-image"
+          />
+          <span className="recipe-name">{recipe.strMeal}</span>
+        </li>
+      ))}
+    </ul>
   );
 }
 

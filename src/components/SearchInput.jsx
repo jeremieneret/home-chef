@@ -4,7 +4,7 @@ function SearchInput({ setSearchTerm }) {
   const [inputValue, setInputValue] = useState("");
 
   const handleSubmit = (e) => {
-    e.preventDefault(); // Empêche le rechargement de la page
+    e.preventDefault(); // Évite le rechargement de la page
     setSearchTerm(inputValue.trim());
   };
 
@@ -12,6 +12,7 @@ function SearchInput({ setSearchTerm }) {
     <form onSubmit={handleSubmit} className="search-form">
       <input
         type="text"
+        name="searchInput"
         placeholder="Search recipes by name, instructions or area..."
         value={inputValue}
         onChange={(e) => setInputValue(e.target.value)}

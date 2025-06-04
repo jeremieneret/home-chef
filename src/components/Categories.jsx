@@ -1,4 +1,6 @@
-function Categories({ categories, setSelectedCategory, selectedCategory, setSearchTerm }) {
+import React from "react";
+
+function Categories({ categories, selectedCategory, setSelectedCategory, setSearchTerm }) {
   return (
     <div className="categories-container">
       <h1 className="categories-title">Categories</h1>
@@ -8,10 +10,14 @@ function Categories({ categories, setSelectedCategory, selectedCategory, setSear
             key={category.idCategory}
             className={`category-item ${selectedCategory === category.strCategory ? "active" : ""}`}
             onClick={() => {
-              // Mise à jour de la catégorie sélectionnée
-              setSelectedCategory(category.strCategory);
-              // Réinitialisation de l'input de recherche
-              setSearchTerm("");
+              // Si la catégorie cliquée est déjà active, on la désactive et on réinitialise le terme.
+              if (selectedCategory === category.strCategory) {
+                setSelectedCategory("");
+                setSearchTerm(""); // Réinitialisation de l'input lors de l'annulation du filtre de catégorie
+              } else {
+                // Sinon, on change simplement la catégorie, en conservant le terme de recherche.
+                setSelectedCategory(category.strCategory);
+              }
             }}
           >
             <img
