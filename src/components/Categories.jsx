@@ -9,14 +9,7 @@ function Categories({ categories, selectedCategory, onCategorySelect }) {
           <li
             key={category.idCategory}
             className={`category-item ${selectedCategory === category.strCategory ? "active" : ""}`}
-            onClick={() => {
-              // If the category is already active, deselect it; otherwise, set it as active
-              if (selectedCategory === category.strCategory) {
-                onCategorySelect("");
-              } else {
-                onCategorySelect(category.strCategory);
-              }
-            }}
+            onClick={() => onCategorySelect(category.strCategory)} // Always select the clicked category
           >
             <img
               src={category.strCategoryThumb}

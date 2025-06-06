@@ -4,7 +4,7 @@ function SearchInput({ onSearchSubmit }) {
   const [inputValue, setInputValue] = useState("");
 
   const handleSubmit = (e) => {
-    e.preventDefault(); // Empêche le rechargement de la page
+    e.preventDefault(); 
     onSearchSubmit(inputValue.trim());
   };
 

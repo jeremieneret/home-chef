@@ -1,10 +1,11 @@
+// hooks/useRecipes.js
 import { useState, useEffect } from "react";
 import axios from "axios";
 
 const useRecipes = (selectedCategory, searchTerm) => {
   const [recipes, setRecipes] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [isLoading, setIsLoading]     = useState(false);
+  const [error, setError]             = useState("");
 
   useEffect(() => {
     const fetchRecipes = async () => {
@@ -12,97 +13,75 @@ const useRecipes = (selectedCategory, searchTerm) => {
       setError("");
       try {
         let candidateRecipes = [];
-        const trimmedSearch = searchTerm.trim();
+        const normalizedSearch = searchTerm.trim().toLowerCase();
 
-        if (trimmedSearch !== "") {
-          const lowerTerm = trimmedSearch.toLowerCase();
-          let results = [];
-          try {
-            // 1. Essayer l'endpoint de recherche standard
-            const resByName = await axios.get(
-              `https://www.themealdb.com/api/json/v1/1/search.php?s=${trimmedSearch}`
-            );
-            results = resByName.data.meals || [];
-          // eslint-disable-next-line no-unused-vars
-          } catch (e) {
-            results = [];
-          }
+        if (normalizedSearch !== "") {
+          // Primary search using "search.php?s="
+          const res = await axios.get(
+            `https://www.themealdb.com/api/json/v1/1/search.php?s=${normalizedSearch}`
+          );
+          let results = res.data.meals || [];
 
-          // Filtrer les résultats en combinant nom, instructions, area
-          results = results.filter((meal) => {
-            const combined = (
-              (meal.strMeal || "") +
-              " " +
-              (meal.strInstructions || "") +
-              " " +
-              (meal.strArea || "")
-            )
-              .toLowerCase()
-              .trim();
-            return combined.includes(lowerTerm);
-          });
-
-          // Si aucun résultat trouvé via l'endpoint standard, on lance un fallback :
+          // If no results, fallback: search by first letter for all letters (a to z)
           if (results.length === 0) {
             const letters = "abcdefghijklmnopqrstuvwxyz".split("");
-            const responses = await Promise.allSettled(
+            const responses = await Promise.all(
               letters.map((letter) =>
                 axios.get(
                   `https://www.themealdb.com/api/json/v1/1/search.php?f=${letter}`
                 )
               )
             );
-            const allMeals = responses.flatMap((res) => {
-              if (res.status === "fulfilled") {
-                return res.value.data.meals || [];
-              } else {
-                return [];
-              }
-            });
-            // Filtrage sur l'ensemble récupéré
-            results = allMeals.filter((meal) => {
-              const combined = (
-                (meal.strMeal || "") +
-                " " +
-                (meal.strInstructions || "") +
-                " " +
-                (meal.strArea || "")
-              )
-                .toLowerCase()
-                .trim();
-              return combined.includes(lowerTerm);
-            });
+            results = responses.flatMap((r) => r.data.meals || []);
           }
+
+          // Filter the results by checking recipe's name, instructions, area, and ingredients
+          results = results.filter((meal) => {
+            // Extract all non-empty ingredients dynamically
+            const ingredients = Object.keys(meal)
+              .filter(
+                (key) =>
+                  key.startsWith("strIngredient") &&
+                  meal[key] &&
+                  meal[key].trim() !== ""
+              )
+              .map((key) => meal[key]);
+            const combinedText = (
+              (meal.strMeal || "") +
+              " " +
+              (meal.strInstructions || "") +
+              " " +
+              (meal.strArea || "") +
+              " " +
+              ingredients.join(" ")
+            )
+              .toLowerCase()
+              .trim();
+            return combinedText.includes(normalizedSearch);
+          });
 
           candidateRecipes = results;
+        } else if (selectedCategory) {
+          // If no search term but a category is selected, use the category endpoint.
+          const res = await axios.get(
+            `https://www.themealdb.com/api/json/v1/1/filter.php?c=${selectedCategory}`
+          );
+          candidateRecipes = res.data.meals || [];
         } else {
-          // Sans terme de recherche, on utilise l'endpoint par catégorie
-          if (selectedCategory) {
-            const res = await axios.get(
-              `https://www.themealdb.com/api/json/v1/1/filter.php?c=${selectedCategory}`
-            );
-            candidateRecipes = res.data.meals || [];
-          } else {
-            const res = await axios.get(
-              `https://www.themealdb.com/api/json/v1/1/search.php?s=`
-            );
-            candidateRecipes = res.data.meals || [];
-          }
+          // Default fallback: no search term and no category = fetch default recipes.
+          const res = await axios.get(
+            `https://www.themealdb.com/api/json/v1/1/search.php?s=`
+          );
+          candidateRecipes = res.data.meals || [];
         }
 
-        // Dans le cas d'une recherche textuelle combinée et d'une catégorie active, 
-        // on peut optionnellement filtrer par strCategory (si vous souhaitez conserver ce comportement)
-        if (trimmedSearch !== "" && selectedCategory) {
-          candidateRecipes = candidateRecipes.filter((meal) =>
-            meal.strCategory &&
-            meal.strCategory.trim().toLowerCase() === selectedCategory.trim().toLowerCase()
-          );
-        }
+        // Limit the results to 6 recipes
+        candidateRecipes = candidateRecipes.slice(0, 6);
 
         setRecipes(candidateRecipes);
       } catch (err) {
         console.error(err);
-        setError("Erreur lors de la récupération des recettes.");
+        setError("Error retrieving recipes.");
       } finally {
         setIsLoading(false);
       }

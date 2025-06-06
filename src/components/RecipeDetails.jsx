@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
 
@@ -13,13 +13,8 @@ function RecipeDetails() {
     const fetchRecipeDetails = async () => {
       try {
         const res = await axios.get(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
-        if (res.data.meals && res.data.meals.length > 0) {
-          setRecipe(res.data.meals[0]);
-        } else {
-          setError("Recipe not found.");
-        }
-      } catch (err) {
-        console.error(err);
+        setRecipe(res.data.meals?.[0] || null);
+      } catch {
         setError("Error retrieving recipe details.");
       } finally {
         setIsLoading(false);
@@ -29,30 +24,17 @@ function RecipeDetails() {
     fetchRecipeDetails();
   }, [id]);
 
-  const handleBack = () => {
-    navigate(-1); // Go back to previous page
-  };
+  if (isLoading) return <p>Loading recipe details...</p>;
+  if (!recipe) return <p className="error-message">{error || "Recipe not found."}</p>;
 
-  if (isLoading) {
-    return <p>Loading recipe details...</p>;
-  }
-
-  if (error) {
-    return <p className="error-message">{error}</p>;
-  }
-
-  const ingredients = [];
-  for (let i = 1; i <= 20; i++) {
-    const ingredient = recipe[`strIngredient${i}`];
-    const measure = recipe[`strMeasure${i}`];
-    if (ingredient && ingredient.trim() !== "") {
-      ingredients.push(`${ingredient} - ${measure}`);
-    }
-  }
+  // Extract ingredients efficiently
+  const ingredients = Object.keys(recipe)
+    .filter((key) => key.startsWith("strIngredient") && recipe[key]?.trim())
+    .map((key, i) => `${recipe[key]} - ${recipe[`strMeasure${i + 1}`]}`);
 
   return (
     <div className="recipe-details">
-      <button onClick={handleBack}>Back</button>
+      <button onClick={() => navigate(-1)}>Back</button>
       <h2>{recipe.strMeal}</h2>
       <img src={recipe.strMealThumb} alt={recipe.strMeal} />
       <p><strong>Category:</strong> {recipe.strCategory}</p>
