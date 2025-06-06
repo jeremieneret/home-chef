@@ -10,7 +10,7 @@ function CustomSelect({ options, value, onChange, placeholder = "Select an optio
     setIsOpen(false);
   };
 
-  // Ferme le select s'il y a un clic en dehors
+  // Ferme le select lorsqu'on clique à l'extérieur
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {

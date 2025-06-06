@@ -1,11 +1,11 @@
 import { useState } from "react";
 
-function SearchInput({ setSearchTerm }) {
+function SearchInput({ onSearchSubmit }) {
   const [inputValue, setInputValue] = useState("");
 
   const handleSubmit = (e) => {
-    e.preventDefault(); // Évite le rechargement de la page
-    setSearchTerm(inputValue.trim());
+    e.preventDefault(); // Empêche le rechargement de la page
+    onSearchSubmit(inputValue.trim());
   };
 
   return (
