@@ -1,29 +1,28 @@
-@use '../tools/' as *;
+@use "../tools/" as *;
 
-.app-container {
+.main-container {
+  padding: 20px 72px 80px 72px;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 0 32px 32px 32px;
+  @include media-max($tablet-l) {
+    display: block;
+  }
+  @include media-max($desktop-m) {
+    padding: 20px 3vw 80px 3vw;
+  }
+  @include media-min($desktop-xl) {
+    padding: 20px 13vw 80px 13vw;
+  }
 }
 
-.background-img {
-  position: absolute;
-  background-image: url('/assets/hero-image-github-profile.jpg');
-  background-repeat: no-repeat;
-  background-position: top;
-  background-size: cover;
-  margin: 0 auto;
-  width: 100vw;
-  height: 240px;
-  z-index: 0;
+.right-container {
+  margin-left: 32px;
+  width: 100%;
+  @include media-max($tablet-l) {
+    margin-left: 0;
+  }
 }
 
-.full-details {
-  z-index: 1;
-  margin: 110px auto 0 auto;
-  max-width: 1110px;
+.search-and-sorting {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
 }

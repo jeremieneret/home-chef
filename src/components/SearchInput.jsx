@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Search from '/assets/Search.svg';
 
 function SearchInput({ onSearchSubmit }) {
   const [inputValue, setInputValue] = useState("");
@@ -10,10 +11,11 @@ function SearchInput({ onSearchSubmit }) {
 
   return (
     <form onSubmit={handleSubmit} className="search-form">
+      <img src={Search} alt="search" />
       <input
         type="text"
         name="searchInput"
-        placeholder="Search recipes by name, instructions or area..."
+        placeholder="Search recipes and more..."
         value={inputValue}
         onChange={(e) => setInputValue(e.target.value)}
         className="search-input"

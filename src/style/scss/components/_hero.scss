@@ -1,0 +1,42 @@
+@use "../tools/" as *;
+
+.hero {
+  &-container {
+    width: 100vw;
+    height: 444px;
+    padding: 12px;
+  }
+  background-image: url('/assets/hero-image.jpg');
+  @include media-max($desktop-s) {
+  background-image: url('/assets/hero-image-sm.jpg');
+  }
+  background-repeat: no-repeat;
+  background-size: cover;
+  @include media-max($desktop-xs) {
+    background-position: center;
+  }
+  @include media-max($mobile-l) {
+    background-position: 45%;
+  }
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  img {
+    position: absolute;
+    top: 60px;
+    right: 20%;
+    @include media-max($desktop-s) {
+      right: 12%;
+    }
+    @include media-max($desktop-xs) {
+      right: 115px;
+    }
+    @include media-max($tablet-l) {
+      top: 108px;
+      width: 279px;
+    }
+    @include media-max($tablet-m) {
+      right: 24px;
+    }
+  }
+}

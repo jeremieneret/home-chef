@@ -1,0 +1,23 @@
+@use "../tools/" as *;
+
+.sort-custom-select-container {
+  display: flex;
+  background-color: $primary;
+  color: $bodyBackground;
+  padding: 12px 24px;
+  border-radius: 50px;
+  label {
+    margin-right: 8px;
+  }
+  div {
+    font-weight: 700;
+    margin-right: 8px;
+  }
+  .custom-select-options {
+    position: absolute;
+    background-color: $primary;
+    border-radius: 12px;
+    padding: 12px 24px;
+    transform: translateX(-24px);
+  }
+}

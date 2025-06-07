@@ -84,42 +84,42 @@ body {
   font-family: "Outfit", sans-serif;
 }
 
-.app-container {
+.main-container {
+  padding: 20px 72px 80px 72px;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 0 32px 32px 32px;
+}
+@media (max-width: 990px) {
+  .main-container {
+    display: block;
+  }
+}
+@media (max-width: 1280px) {
+  .main-container {
+    padding: 20px 3vw 80px 3vw;
+  }
+}
+@media (min-width: 1440px) {
+  .main-container {
+    padding: 20px 13vw 80px 13vw;
+  }
 }
 
-.background-img {
-  position: absolute;
-  background-image: url("/assets/hero-image-github-profile.jpg");
-  background-repeat: no-repeat;
-  background-position: top;
-  background-size: cover;
-  margin: 0 auto;
-  width: 100vw;
-  height: 240px;
-  z-index: 0;
+.right-container {
+  margin-left: 32px;
+  width: 100%;
+}
+@media (max-width: 990px) {
+  .right-container {
+    margin-left: 0;
+  }
 }
 
-.full-details {
-  z-index: 1;
-  margin: 110px auto 0 auto;
-  max-width: 1110px;
+.search-and-sorting {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.app-container {
-  padding: 20px;
-  max-width: 1000px;
-  margin: 0 auto;
+  justify-content: space-between;
 }
 
 .category-item {
-  width: 260px;
   height: 55px;
   display: flex;
   align-items: center;
@@ -129,6 +129,11 @@ body {
   overflow: hidden;
   cursor: pointer;
   transition: background-color 0.3s ease;
+}
+@media (min-width: 990px) {
+  .category-item {
+    width: 260px;
+  }
 }
 .category-item:hover {
   background-color: #FEBD2E;
@@ -151,129 +156,140 @@ body {
   margin-bottom: 32px;
 }
 
-/* Styles pour le composant Recipes */
-.recipes-list {
-  list-style: none;
-  padding: 0;
-}
-
-.recipe-item {
-  display: flex;
-  align-items: center;
-  margin-bottom: 12px;
-}
-
-.recipe-image {
-  width: 60px;
-  height: 60px;
-  border-radius: 5px;
-  margin-right: 10px;
-}
-
-.recipe-name {
-  font-size: 16px;
-  font-weight: bold;
-}
-
-/* Styles pour le composant SearchInput */
-.search-form {
-  margin-bottom: 24px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.search-input {
-  width: 300px;
-  padding: 8px 12px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 4px 0 0 4px;
-  outline: none;
-}
-
-.search-button {
-  padding: 8px 16px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-left: none;
-  background-color: #f0f0f0;
-  cursor: pointer;
-  border-radius: 0 4px 4px 0;
-}
-
-.search-button:hover {
-  background-color: #e0e0e0;
-}
-
-.error-message {
-  text-align: center;
-  font-size: 18px;
-  color: red;
-  margin-top: 20px;
-}
-
-/* Style pour le bouton toggle de tri */
-.sort-button {
-  margin: 16px auto;
-  display: block;
-  padding: 8px 16px;
-  font-size: 16px;
-  background-color: #ddd;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.sort-button:hover {
-  background-color: #ccc;
-}
-
-/* Container du custom select */
 .sort-custom-select-container {
-  margin: 16px 0;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  background-color: #E5E7EB;
+  color: #0E1325;
+  padding: 12px 24px;
+  border-radius: 50px;
 }
-
 .sort-custom-select-container label {
   margin-right: 8px;
-  font-size: 16px;
 }
-
-/* Custom select */
-.custom-select {
-  position: relative;
-  width: 200px;
-  cursor: pointer;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  padding: 8px;
-  background-color: #fff;
-  font-size: 16px;
+.sort-custom-select-container div {
+  font-weight: 700;
+  margin-right: 8px;
 }
-
-.custom-select-selected {
-  padding: 4px;
-}
-
-.custom-select-options {
+.sort-custom-select-container .custom-select-options {
   position: absolute;
-  left: 0;
-  right: 0;
-  z-index: 10;
-  background: #fff;
-  border: 1px solid #ccc;
-  border-top: none;
-  max-height: 200px;
-  overflow-y: auto;
+  background-color: #E5E7EB;
+  border-radius: 12px;
+  padding: 12px 24px;
+  transform: translateX(-24px);
 }
 
-.custom-select-option {
+.hero {
+  background-image: url("/assets/hero-image.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+}
+.hero-container {
+  width: 100vw;
+  height: 444px;
+  padding: 12px;
+}
+@media (max-width: 1175px) {
+  .hero {
+    background-image: url("/assets/hero-image-sm.jpg");
+  }
+}
+@media (max-width: 1024px) {
+  .hero {
+    background-position: center;
+  }
+}
+@media (max-width: 555px) {
+  .hero {
+    background-position: 45%;
+  }
+}
+.hero img {
+  position: absolute;
+  top: 60px;
+  right: 20%;
+}
+@media (max-width: 1175px) {
+  .hero img {
+    right: 12%;
+  }
+}
+@media (max-width: 1024px) {
+  .hero img {
+    right: 115px;
+  }
+}
+@media (max-width: 990px) {
+  .hero img {
+    top: 108px;
+    width: 279px;
+  }
+}
+@media (max-width: 850px) {
+  .hero img {
+    right: 24px;
+  }
+}
+
+.recipes-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, auto);
+  gap: 32px;
+  width: 100%;
+  margin-top: 40px;
+}
+@media (max-width: 990px) {
+  .recipes-list {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3, auto);
+  }
+}
+@media (max-width: 555px) {
+  .recipes-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+}
+.recipe-item {
+  background-color: #394150;
   padding: 8px;
+  border-radius: 12px;
+}
+.recipe-item img {
+  width: 100%;
+  height: 180px;
+  border-radius: 12px;
+}
+@media (max-width: 555px) {
+  .recipe-item img {
+    height: 240px;
+  }
 }
 
-.custom-select-option:hover {
-  background-color: #eee;
+.search-form {
+  display: flex;
+  width: 432px;
+  height: 48px;
+  padding: 12px 24px;
+  border: solid 1px #394150;
+  border-radius: 50px;
+}
+.search-form input {
+  background-color: #0E1325;
+  margin-left: 12px;
+  width: 100%;
+  font-family: "Outfit", sans-serif;
+  font-weight: 500;
+  color: #E5E7EB;
+  font-size: 16px;
+}
+.search-form input::-moz-placeholder {
+  color: #E5E7EB;
+}
+.search-form input::placeholder {
+  color: #E5E7EB;
 }/*# sourceMappingURL=style.css.map */

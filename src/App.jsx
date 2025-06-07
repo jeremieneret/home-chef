@@ -5,6 +5,8 @@ import SearchInput from "./components/SearchInput";
 import CustomSelect from "./components/CustomSelect";
 import useCategories from "./hooks/useCategories";
 import useRecipes from "./hooks/useRecipes";
+import HeroText from "/assets/hero-text.png?url"
+import ExpandDown from "/assets/Expand_down.svg?url"
 import "./style/CSS/style.css";
 
 function App() {
@@ -15,7 +17,7 @@ function App() {
 
   // Fetch categories using a custom hook
   const { categories, isLoading: isLoadingCategories, error: categoriesError } = useCategories();
-  
+
   // Fetch recipes using a custom hook
   const { recipes, isLoading: isLoadingRecipes, error: recipesError } = useRecipes(selectedCategory, searchTerm);
 
@@ -48,40 +50,54 @@ function App() {
       {/* Display errors if any */}
       {error && <p className="error-message">{error}</p>}
 
-      {/* Search input for filtering recipes */}
-      <SearchInput onSearchSubmit={handleSearchSubmit} />
-
-      {/* Sorting dropdown to sort recipes */}
-      <div className="sort-custom-select-container">
-        <label htmlFor="sortSelect">Sort by:</label>
-        <CustomSelect
-          options={[
-            { value: "name", label: "Name" },
-            { value: "id", label: "ID" },
-          ]}
-          value={sortBy}
-          onChange={setSortBy}
-          placeholder="Select sort order"
-        />
+      <div className="hero-container">
+        <div className="hero">
+          <img src={HeroText} alt="Chefs Academy Secrets" />
+        </div>
       </div>
 
-      {/* Category selection */}
-      {isLoadingCategories ? (
-        <p>Loading categories...</p>
-      ) : (
-        <Categories
-          categories={categories}
-          selectedCategory={selectedCategory}
-          onCategorySelect={handleCategorySelect}
-        />
-      )}
+      <div className="main-container">
+        {/* Category selection */}
+        {isLoadingCategories ? (
+          <p>Loading categories...</p>
+        ) : (
+          <Categories
+            categories={categories}
+            selectedCategory={selectedCategory}
+            onCategorySelect={handleCategorySelect}
+          />
+        )}
 
-      {/* Recipe list */}
-      {isLoadingRecipes ? (
-        <p>Loading recipes...</p>
-      ) : (
-        <Recipes recipes={sortedRecipes} />
-      )}
+        <div className="right-container">
+          <div className="search-and-sorting">
+            {/* Search input for filtering recipes */}
+            <SearchInput onSearchSubmit={handleSearchSubmit} />
+
+            {/* Sorting dropdown to sort recipes */}
+            <div className="sort-custom-select-container">
+              <label htmlFor="sortSelect">Sort by:</label>
+              <CustomSelect
+                options={[
+                  { value: "name", label: "Name" },
+                  { value: "id", label: "ID" },
+                ]}
+                value={sortBy}
+                onChange={setSortBy}
+                placeholder="Select sort order"
+              />
+              <img src={ExpandDown} alt="expand down" />
+            </div>
+          </div>
+
+
+          {/* Recipe list */}
+          {isLoadingRecipes ? (
+            <p>Loading recipes...</p>
+          ) : (
+            <Recipes recipes={sortedRecipes} />
+          )}
+        </div>
+      </div>
     </div>
   );
 }
