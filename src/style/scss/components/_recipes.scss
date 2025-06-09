@@ -26,9 +26,13 @@
       width: 100%;
       height: 180px;
       border-radius: 12px;
+      object-fit: cover;
       @include media-max($mobile-l) {
         height: 240px;
       }
     }
+  }
+  &-name {
+    margin: 12px 0;
   }
 }

@@ -1,0 +1,90 @@
+@use "../tools/" as *;
+
+.recipe-details {
+  padding: 32px 72px;
+  @include media-max($mobile-xl) {
+    padding: 24px;
+  }
+  header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 52px;
+  }
+  .back-btn {
+    display: flex;
+    background-color: $primary;
+    white-space: nowrap;
+    padding: 12px 24px;
+    color: $bodyBackground;
+    border-radius: 50px;
+    button {
+      font-weight: 500;
+      font-size: 16px;
+      color: $bodyBackground;
+      padding: 2px 0 2px 8px;
+    }
+  }
+
+  main {
+    margin: 0 auto;
+    max-width: 616px;
+    img {
+      height: 400px;
+      width: 100%;
+      object-fit: cover;
+      border-radius: 12px;
+      margin-bottom: 32px;
+    }
+    h2 {
+      font-family: $PlayfairDisplay;
+      font-weight: 600;
+      font-size: 40px;
+      margin-bottom: 20px;
+    }
+    .tags {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 40px;
+    }
+    .tag {
+      background-color: $cardBackground;
+      width: fit-content;
+      padding: 8px 24px;
+      border-radius: 50px;
+      font-size: 14px;
+      span {
+        font-weight: 700;
+      }
+    }
+    .title {
+      align-items: center;
+      display: flex;
+      margin-bottom: 16px;
+      div {
+        width: 16px;
+        height: 32px;
+        margin-right: 12px;
+        border-radius: 50px;
+      }
+    }
+    .ingredients {
+      margin-bottom: 40px;
+      .title div {
+        background-color: $yellow;
+      }
+      li {
+        list-style: inside;
+        margin-bottom: 12px;
+        padding-left: 12px;
+      }
+    }
+    .instructions {
+      .title div {
+        background-color: $blue;
+      }
+      p {
+        white-space: pre-line;
+      }
+    }
+  }
+}

@@ -165,6 +165,7 @@ body {
 }
 .sort-custom-select-container label {
   margin-right: 8px;
+  white-space: nowrap;
 }
 .sort-custom-select-container div {
   font-weight: 700;
@@ -263,11 +264,106 @@ body {
   width: 100%;
   height: 180px;
   border-radius: 12px;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 @media (max-width: 555px) {
   .recipe-item img {
     height: 240px;
   }
+}
+.recipe-name {
+  margin: 12px 0;
+}
+
+.recipe-details {
+  padding: 32px 72px;
+}
+@media (max-width: 600px) {
+  .recipe-details {
+    padding: 24px;
+  }
+}
+.recipe-details header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 52px;
+}
+.recipe-details .back-btn {
+  display: flex;
+  background-color: #E5E7EB;
+  white-space: nowrap;
+  padding: 12px 24px;
+  color: #0E1325;
+  border-radius: 50px;
+}
+.recipe-details .back-btn button {
+  font-weight: 500;
+  font-size: 16px;
+  color: #0E1325;
+  padding: 2px 0 2px 8px;
+}
+.recipe-details main {
+  margin: 0 auto;
+  max-width: 616px;
+}
+.recipe-details main img {
+  height: 400px;
+  width: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: 12px;
+  margin-bottom: 32px;
+}
+.recipe-details main h2 {
+  font-family: "Playfair Display", serif;
+  font-weight: 600;
+  font-size: 40px;
+  margin-bottom: 20px;
+}
+.recipe-details main .tags {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 40px;
+}
+.recipe-details main .tag {
+  background-color: #394150;
+  width: -moz-fit-content;
+  width: fit-content;
+  padding: 8px 24px;
+  border-radius: 50px;
+  font-size: 14px;
+}
+.recipe-details main .tag span {
+  font-weight: 700;
+}
+.recipe-details main .title {
+  align-items: center;
+  display: flex;
+  margin-bottom: 16px;
+}
+.recipe-details main .title div {
+  width: 16px;
+  height: 32px;
+  margin-right: 12px;
+  border-radius: 50px;
+}
+.recipe-details main .ingredients {
+  margin-bottom: 40px;
+}
+.recipe-details main .ingredients .title div {
+  background-color: #FEBD2E;
+}
+.recipe-details main .ingredients li {
+  list-style: inside;
+  margin-bottom: 12px;
+  padding-left: 12px;
+}
+.recipe-details main .instructions .title div {
+  background-color: #4E80EE;
+}
+.recipe-details main .instructions p {
+  white-space: pre-line;
 }
 
 .search-form {
@@ -277,6 +373,12 @@ body {
   padding: 12px 24px;
   border: solid 1px #394150;
   border-radius: 50px;
+  margin-right: 12px;
+}
+@media (max-width: 600px) {
+  .search-form {
+    padding: 12px 16px;
+  }
 }
 .search-form input {
   background-color: #0E1325;

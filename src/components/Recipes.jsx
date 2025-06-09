@@ -11,7 +11,7 @@ function Recipes({ recipes }) {
         <li key={idMeal} className="recipe-item">
           <Link to={`/meal/${idMeal}`}>
             <img src={strMealThumb} alt={strMeal} className="recipe-image" />
-            <span className="recipe-name">{strMeal}</span>
+            <p className="recipe-name">{strMeal}</p>
           </Link>
         </li>
       ))}

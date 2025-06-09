@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
+import HomeChefLogo from '/assets/logo-light.svg';
+import ExpandLeft from '/assets/Expand_left.svg';
 
 function RecipeDetails() {
   const { id } = useParams();
@@ -14,6 +16,7 @@ function RecipeDetails() {
       try {
         const res = await axios.get(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
         setRecipe(res.data.meals?.[0] || null);
+
       } catch {
         setError("Error retrieving recipe details.");
       } finally {
@@ -34,15 +37,35 @@ function RecipeDetails() {
 
   return (
     <div className="recipe-details">
-      <button onClick={() => navigate(-1)}>Back</button>
-      <h2>{recipe.strMeal}</h2>
-      <img src={recipe.strMealThumb} alt={recipe.strMeal} />
-      <p><strong>Category:</strong> {recipe.strCategory}</p>
-      <p><strong>Area:</strong> {recipe.strArea}</p>
-      <h3>Ingredients</h3>
-      <ul>{ingredients.map((item, index) => <li key={index}>{item}</li>)}</ul>
-      <h3>Instructions</h3>
-      <p>{recipe.strInstructions}</p>
+      <header>
+        <img src={HomeChefLogo} alt="Home Chef Logo" />
+        <div className="back-btn">
+          <img src={ExpandLeft} alt="Expand Left" />
+          <button onClick={() => navigate(-1)}>Back to categories</button>
+        </div>
+      </header>
+      <main>
+        <img src={recipe.strMealThumb} alt={recipe.strMeal} />
+        <h2>{recipe.strMeal}</h2>
+        <div className="tags">
+          <p className='tag'>Category: <span>{recipe.strCategory}</span></p>
+          <p className='tag'>Area: <span>{recipe.strArea}</span></p>
+        </div>
+        <div className="ingredients">
+          <div className="title">
+            <div></div>
+            <h3>Ingredients</h3>
+          </div>
+          <ul>{ingredients.map((item, index) => <li key={index}>{item}</li>)}</ul>
+        </div>
+        <div className="instructions">
+          <div className="title">
+            <div></div>
+            <h3>Instructions</h3>
+          </div>
+          <p dangerouslySetInnerHTML={{ __html: recipe.strInstructions.replace(/\n/g, "<br />") }} />
+        </div>
+      </main>
     </div>
   );
 }
